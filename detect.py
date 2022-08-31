@@ -201,6 +201,8 @@ def run(
 
         # Print time (inference-only)
         LOGGER.info(f'{s}Done. ({t3 - t2:.3f}s)')
+        fpsm = 1 / (t3 - t2)
+        LOGGER.info(f'FPS: {fpsm:.1f}')
 
     # Print results
     t = tuple(x / seen * 1E3 for x in dt)  # speeds per image
@@ -208,6 +210,8 @@ def run(
     if save_txt or save_img:
         s = f"\n{len(list(save_dir.glob('labels/*.txt')))} labels saved to {save_dir / 'labels'}" if save_txt else ''
         LOGGER.info(f"Results saved to {colorstr('bold', save_dir)}{s}")
+        
+        
     if update:
         strip_optimizer(weights)  # update model (to fix SourceChangeWarning)
 
